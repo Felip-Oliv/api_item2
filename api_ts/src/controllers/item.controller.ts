@@ -1,28 +1,32 @@
-import { ProdutoRepository } from "./../data/produto.repository";
 import { Request, Response } from "express";
 import { Item } from "../models/item.model";
 import { ItemRepository } from "../data/item.repository";
 import crypto from "crypto";
+import axios from "axios";
 
-const repositoryProduto = new ProdutoRepository();
 const repositoryItem = new ItemRepository();
 
 export class ItemController {
-  listar(request: Request, response: Response) {
+/*  listar(request: Request, response: Response) {
     const itens = repositoryItem.listar();
     return response.status(200).json({
       message: "ok",
       data: itens,
     });
   }
+*/
+
 
   cadastrar(request: Request, response: Response) {
     let { idProduto, quantidade, idCarrinho } = request.params;
     console.log(request.params);
 
-    const produto = repositoryProduto.buscar(Number.parseInt(idProduto));
-
-    if (!produto) {
+    axios.get("http://localhost:3000/produtos/1")
+    .then(resposta => {
+      console.log(resposta.data);
+    })
+  }
+    /*if (!produto) {
       return response.status(404).json({ message: "Produto não encontrado" });
     }
 
@@ -52,6 +56,5 @@ export class ItemController {
     return response.status(200).json({
       message: "ok",
       data: itens,
-    });
+    });*/
   }
-}
